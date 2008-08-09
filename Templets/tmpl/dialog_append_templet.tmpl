@@ -1,0 +1,48 @@
+<mt:var name="page_title" value="<__trans phrase="Append a templet">">
+<mt:include name="dialog/header.tmpl">
+
+<form name="templet_form" id="templet_form" method="post" action="<mt:var name="script_url">">
+    <input type="hidden" name="__mode" value="finish_append_templet" />
+    <input type="hidden" name="blog_id" value="<mt:var name="blog_id">" />
+    <input type="hidden" name="magic_token" value="<mt:var name="magic_token">" />
+    <input type="hidden" name="return_args" value="<mt:var name="return_args" escape="html">" />
+
+    <mt:if name="templets_count" gt="0">
+    <mtapp:setting
+        id="templet_id"
+        label="<__trans phrase="Select a templet">">
+	<select id="templet_id" name="templet_id" size="1">
+		<mt:loop name="templets_loop">
+		<option value="<mt:var name="key" escape="html">" <mt:if name="selected">selected="selected"</mt:if>><mt:var name="label" escape="html"></option>
+		</mt:loop>
+	</select>
+    </mtapp:setting>
+    <mt:else>
+    <mtapp:statusmsg    
+        id="warning"
+        class="info">
+        <__trans phrase="No templets available.">
+    </mtapp:statusmsg>
+    </mt:if>
+
+    <mt:setvarblock name="action_buttons">
+        <mt:if name="templets_count" gt="0">
+        <button
+            type="submit"
+            accesskey="a"
+            title="<__trans phrase="Append (a)">"
+            class="primary-button"
+            ><__trans phrase="Append"></button>
+        </mt:if>
+        <button
+            onclick="closeDialog(); return false"
+            type="submit"
+            accesskey="x"
+            class="cancel"
+            title="<__trans phrase="Cancel (x)">"
+            ><__trans phrase="Cancel"></button>
+    </mt:setvarblock>
+    <mt:include name="include/actions_bar.tmpl" bar_position="bottom" hide_pager="1" settings_bar="1">
+</form>
+
+<mt:include name="dialog/footer.tmpl">
