@@ -155,9 +155,8 @@ m/^(archive|individual|page|category|index|custom|widget|widgetset)$/
     $blog->custom_dynamic_templates('none');
     $blog->save;
 
-    my $plugin = MT::Plugin::Templets->instance;
-    my $tmpl   = $plugin->load_tmpl('finish_append_templet.tmpl');
-    $app->build_page( $tmpl, { return_args => $app->param('return_args') } );
+    $app->add_return_arg( 'refreshed' => 1 );
+    $app->call_return;
 }
 
 1;
