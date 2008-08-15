@@ -17,15 +17,15 @@ our $VERSION = '0.01';
 
 my $plugin = __PACKAGE__->new(
     {
-        id   => 'templets',
-        name => 'Templets',
-        description =>
-q(<MT_TRANS phrase="Templets plugin provides a framework for making Template Sets pluggable.">),
+        name        => 'Templets',
+        id          => 'templets',
+        key         => 'templets',
+        description => q(<__trans phrase="_TEMPLETS_DESCRIPTION">),
         doc_link    => 'http://code.as-is.net/public/wiki/Templets',
         author_name => 'Hirotaka Ogawa',
         author_link => 'http://as-is.net/blog/',
-        version     => $VERSION,
         l10n_class  => 'Templets::L10N',
+        version     => $VERSION,
     }
 );
 MT->add_plugin($plugin);
