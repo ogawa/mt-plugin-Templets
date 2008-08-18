@@ -17,6 +17,17 @@
 		</mt:loop>
 	</select>
     </mtapp:setting>
+
+    <div>
+    <input type="checkbox" id="overwrite" name="overwrite" checked="checked" />
+    <label for="overwrite"><__trans phrase="Overwrite existing templates"></label>
+    </div>
+
+    <div>
+    <input type="checkbox" id="backup" name="backup" />
+    <label for="backup"><__trans phrase="Make backups of existing templates first"></label>
+    </div>
+
     <mt:else>
     <mtapp:statusmsg    
         id="warning"

@@ -10,6 +10,10 @@ qq{Templetsプラグインは、テンプレートセットをpluggableにする
     'Append a templet' => 'テンプレットを追加',
     'Select a templet' => 'テンプレットの選択',
     'Append'           => '追加',
+    'Overwrite existing templates' =>
+      '既存のテンプレートを上書きする',
+    'Make backups of existing templates first' =>
+      '既存のテンプレートのバックアップを作成する',
 );
 
 1;

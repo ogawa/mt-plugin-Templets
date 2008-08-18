@@ -68,6 +68,14 @@ sub finish_append_templet {
         $app->translate( "No [_1] templets were found.", $templet_id ) )
       if !$tmpl_list || ( ref($tmpl_list) ne 'ARRAY' ) || ( !@$tmpl_list );
 
+    # options
+    my $overwrite = $app->param('overwrite') || 0;
+    my $backup    = $app->param('backup')    || 0;
+
+    my @ts = MT::Util::offset_time_list( time, $blog );
+    my $ts = sprintf "%04d-%02d-%02d %02d:%02d:%02d", $ts[5] + 1900, $ts[4] + 1,
+      @ts[ 3, 2, 1, 0 ];
+
     # The following part is based on MT::Blog->create_default_templates()
     require MT::Template;
     my @arch_tmpl;
@@ -88,7 +96,25 @@ m/^(archive|individual|page|category|index|custom|widget|widgetset)$/
         else {
             $terms->{identifier} = $val->{identifier};
         }
-        next if MT::Template->exist($terms);
+        next if !$overwrite && MT::Template->exist($terms);
+
+        my $iter = MT::Template->load_iter($terms);
+        while ( my $tmpl = $iter->() ) {
+            if ($backup) {
+                require MT::TemplateMap;
+                MT::TemplateMap->remove( { template_id => $tmpl->id, } );
+                $tmpl->type('backup');
+                $tmpl->name( $tmpl->name . ' (Backup from ' . $ts . ')' );
+                $tmpl->identifier(undef);
+                $tmpl->rebuild_me(0);
+                $tmpl->linked_file(undef);
+                $tmpl->outfile('');
+                $tmpl->save;
+            }
+            else {
+                $tmpl->remove;
+            }
+        }
 
         my $obj = MT::Template->new;
         my $p = $val->{plugin} || 'MT';
