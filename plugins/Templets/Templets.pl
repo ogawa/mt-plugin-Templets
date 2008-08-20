@@ -1,6 +1,6 @@
 # Templets
 #
-# $Id
+# $Id$
 #
 # This software is provided as-is. You may use it for commercial or
 # personal use. If you distribute it, please keep this notice intact.
