@@ -1,0 +1,48 @@
+key: MT::Plugin::MyTemplet
+name: My Templet
+description: MyTemplet Plugin Description.
+author_name: Plugin Author Name
+author_link: http://plugin.author/url/
+version: 0.1
+
+templets:
+  my_templet:
+    label: My Templet
+    base_path: templates
+    order: 100
+    templates:
+      index:
+        homepage:
+          label: My Homepage
+          outfile: index.php
+          rebuild_me: 1
+      individual:
+        entry:
+          label: Blog Entry
+          mappings:
+            entry_archive:
+              archive_type: Individual
+              preferred: 0
+      archive:
+        another_entry:
+          label: Another Blog Entry
+          mappings:
+            entry_archive:
+              archive_type: Individual
+              file_template: %c/%f
+              preferred: 1
+        entry_listing:
+          label: Blog Entry Listing
+          mappings:
+            monthly:
+              archive_type: Monthly
+            category:
+              archive_type: Category
+              file_template: %c/index.html
+      system:
+        search_results:
+          label: Search Results
+      module:
+        foo:
+          label: Foo Module
+
